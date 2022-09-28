@@ -77,9 +77,9 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `super_market`.`state`
+-- Table `super_market`.`status`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `super_market`.`state` (
+CREATE TABLE IF NOT EXISTS `super_market`.`status` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `description` TEXT NOT NULL,
   PRIMARY KEY (`id`))
@@ -97,12 +97,12 @@ CREATE TABLE IF NOT EXISTS `super_market`.`purchase_invoice` (
   `total_price` DOUBLE NOT NULL,
   `employee_id` INT UNSIGNED NOT NULL,
   `supplier_id` INT UNSIGNED NOT NULL,
-  `state_id` INT UNSIGNED NOT NULL,
+  `status_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `number_serial_UNIQUE` (`serial_number` ASC),
   INDEX `fk_purchase_invoice_employee` (`employee_id` ASC),
   INDEX `fk_purchase_invoice_supplier` (`supplier_id` ASC),
-  INDEX `fk_purchase_invoice_state` (`state_id` ASC),
+  INDEX `fk_purchase_invoice_status` (`status_id` ASC),
   CONSTRAINT `fk_purchase_invoice_employee`
     FOREIGN KEY (`employee_id`)
     REFERENCES `super_market`.`person` (`id`)
@@ -113,9 +113,9 @@ CREATE TABLE IF NOT EXISTS `super_market`.`purchase_invoice` (
     REFERENCES `super_market`.`person` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_purchase_invoice_state`
-    FOREIGN KEY (`state_id`)
-    REFERENCES `super_market`.`state` (`id`)
+  CONSTRAINT `fk_purchase_invoice_status`
+    FOREIGN KEY (`status_id`)
+    REFERENCES `super_market`.`status` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -188,12 +188,12 @@ CREATE TABLE IF NOT EXISTS `super_market`.`sale_invoice` (
   `total_price` DOUBLE UNSIGNED NOT NULL,
   `employee_id` INT UNSIGNED NOT NULL,
   `costumer_id` INT UNSIGNED NOT NULL,
-  `state_id` INT UNSIGNED NOT NULL,
+  `status_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `series_number_UNIQUE` (`serial_number` ASC),
   INDEX `fk_sales_invoice_employee` (`employee_id` ASC),
   INDEX `fk_sales_invoice_costumer` (`costumer_id` ASC),
-  INDEX `fk_sales_invoice_state` (`state_id` ASC),
+  INDEX `fk_sales_invoice_status` (`status_id` ASC),
   CONSTRAINT `fk_sales_invoice_employee`
     FOREIGN KEY (`employee_id`)
     REFERENCES `super_market`.`person` (`id`)
@@ -204,9 +204,9 @@ CREATE TABLE IF NOT EXISTS `super_market`.`sale_invoice` (
     REFERENCES `super_market`.`person` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_sales_invoice_state`
-    FOREIGN KEY (`state_id`)
-    REFERENCES `super_market`.`state` (`id`)
+  CONSTRAINT `fk_sales_invoice_status`
+    FOREIGN KEY (`status_id`)
+    REFERENCES `super_market`.`status` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
