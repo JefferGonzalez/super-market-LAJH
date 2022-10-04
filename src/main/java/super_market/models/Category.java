@@ -1,24 +1,28 @@
 package super_market.models;
+
+import java.util.List;
+
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "category")
 public class Category {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String description;
 
-    public Category() {
-        
-    }
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "category_id")
+    @JsonIgnoreProperties("category")
+    private List<Product> product;
 
-    public Category(Integer id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-    
 }
