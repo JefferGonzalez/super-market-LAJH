@@ -1,10 +1,20 @@
 package super_market.models;
+
+import java.util.List;
+
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "product")
 public class Product {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -14,17 +24,22 @@ public class Product {
     private Double purchase_price;
     private Integer stock;
 
-    public Product() {
-        
-    }
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties("product")
+    private Category category;
 
-    public Product(Integer id, String name, String description, Double sale_price, Double purchase_price, Integer stock) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.sale_price = sale_price;
-        this.purchase_price = purchase_price;
-        this.stock = stock;
-    }
-    
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    @JsonIgnoreProperties("product")
+    private Brand brand;
+
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "product_id")
+    @JsonIgnoreProperties("product")
+    private List<PurchaseDetail> purchase_detail;
+
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "product_id")
+    @JsonIgnoreProperties("product")
+    private List<SaleDetail> sale_detail;
+
 }
