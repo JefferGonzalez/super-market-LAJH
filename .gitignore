@@ -1,7 +1,3 @@
-### application.properties
-*.properties
-
-
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -10,6 +6,7 @@ target/
 
 ### STS ###
 .apt_generated
+.apt_generated_tests
 .classpath
 .factorypath
 .project
@@ -35,5 +32,3 @@ build/
 
 ### VS Code ###
 .vscode/
-### aplication proparties
-*.properties
